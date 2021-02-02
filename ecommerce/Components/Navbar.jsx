@@ -1,3 +1,7 @@
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
+import { faBriefcase } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Link from 'next/link'
 
 const navbar = {
     nav:{
@@ -9,23 +13,17 @@ const navbar = {
         justifyContent: 'space-between',
         padding: '0 1rem'
     },
-    logoBox:{
-        display: 'flex',
-        alignItems: 'center',
-    },
-    logo:{
-        width: '40px',
-        height: '40px'
-    },
     title:{
         color:'white',
         fontSize: '1.2rem',
-        marginLeft: '5px'
+        marginLeft: '5px',
+        cursor: 'pointer'
     },
     links:{
         color: 'white',
         fontSize: '1.5rem',
-        marginLeft: '1.5rem'
+        marginLeft: '1.5rem',
+        cursor: 'pointer'
     },
     counter:{
         width: '1.6rem',
@@ -47,15 +45,15 @@ const navbar = {
 const Navbar = () => {
     return (
         <div style={navbar.nav}>
-            <div style={navbar.logoBox}>
-                <img style={navbar.logo} src="images/logo.png" alt="logo"/>
+            <Link href="/">
                 <span style={navbar.title}>E-Dokan</span>
-            </div>
+            </Link>
             <div style={{position:'relative'}}>
-                <i style={navbar.links} class="fa fa-shopping-cart" aria-hidden="true"></i>
+            
+                <FontAwesomeIcon style={navbar.links} icon={faShoppingCart} />
                 <span style={navbar.counter}>4</span>
-                
-                <i style={navbar.links} class="fa fa-briefcase" aria-hidden="true"></i>
+                <FontAwesomeIcon style={navbar.links} icon={faBriefcase} />
+
             </div>
         </div>
     );
