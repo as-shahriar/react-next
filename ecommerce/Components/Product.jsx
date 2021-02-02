@@ -34,8 +34,6 @@ const Product = ({item}) => {
                     <span>Shirt</span>
                     <div>
                         <FontAwesomeIcon icon={faDollarSign} />
-
-                        <i className="fa fa-usd" aria-hidden="true"></i>
                         <span style={product.price}>450</span>
                     </div>
                 </div>
