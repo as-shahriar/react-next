@@ -14,3 +14,26 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.container {
+  margin: 2rem 6rem;
+}
+.button {
+  margin-top: 1rem;
+  background-color: #e94560;
+  color: white;
+  width: 10rem;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: #00000021 2px 2px 15px;
+  cursor: pointer;
+  user-select: none;
+}
+
+@media (max-width: 850px) {
+  .container {
+    margin: 0.2rem 0.2rem;
+  }
+}

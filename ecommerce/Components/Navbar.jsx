@@ -38,7 +38,9 @@ const navbar = {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        boxShadow: '3px 3px 5px #000000ba'
+        boxShadow: '3px 3px 5px #000000ba',
+        cursor: 'pointer'
+
     }
 } 
 
@@ -48,10 +50,13 @@ const Navbar = () => {
             <Link href="/">
                 <span style={navbar.title}>E-Dokan</span>
             </Link>
-            <div style={{position:'relative'}}>
-            
-                <FontAwesomeIcon style={navbar.links} icon={faShoppingCart} />
-                <span style={navbar.counter}>4</span>
+            <div style={{display:'flex'}}>
+                <Link href="/cart">
+                    <div style={{position:'relative'}}>
+                        <FontAwesomeIcon style={navbar.links} icon={faShoppingCart} />
+                        <span style={navbar.counter}>4</span>
+                    </div>
+                </Link>
                 <FontAwesomeIcon style={navbar.links} icon={faBriefcase} />
 
             </div>

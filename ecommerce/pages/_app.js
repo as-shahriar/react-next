@@ -10,7 +10,9 @@ function MyApp({ Component, pageProps }) {
         <title>Ecommerce</title>
       </Head> 
       <Navbar/>
-      <Component {...pageProps} />
+      <div className='container'>
+        <Component {...pageProps} />
+      </div>
     </>
     )
 }

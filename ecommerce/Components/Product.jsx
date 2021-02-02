@@ -14,7 +14,7 @@ const product = {
     },
     image:{
         width: '200px',
-        height: '220px',
+        height: '200px',
         padding: '1rem'
     },
     details:{
@@ -29,12 +29,12 @@ const Product = ({item}) => {
     return (
         <Link href={`product/${item.id}`}>
             <div style={product.card}>
-                <img style={product.image} src="https://m.media-amazon.com/images/I/81hggFz2DvL._AC_UL480_QL65_.jpg" alt="product image"/>
+                <img style={product.image} src={item.image} alt="product image"/>
                 <div style={product.details}>
-                    <span>Shirt</span>
+                    <span>{item.name}</span>
                     <div>
                         <FontAwesomeIcon icon={faDollarSign} />
-                        <span style={product.price}>450</span>
+                        <span style={product.price}>{item.price}</span>
                     </div>
                 </div>
             </div>
