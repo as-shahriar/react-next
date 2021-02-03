@@ -1,6 +1,6 @@
 import { faDollarSign } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {useAddToCart,useCart} from '../Providers/cartProvider'
+import {useCart} from '../Providers/cartProvider'
 
 const style = {
     container:{
@@ -10,19 +10,18 @@ const style = {
 }
 
 const ProductDetails = ({product}) => {
-    const addToMainCart = useAddToCart()
-    const cart = useCart()
+    const {cart,addToCart} = useCart()
     let len = cart.filter(item=>{
         return item.id === product.id
     }).length
 
-    function addToCart (){
+    function addToCartLocal (){
         let len = cart.filter(item=>{
             return item.id === product.id
         }).length
         if(!len){
             product.cart_qty = 1
-            addToMainCart([...cart,product])
+            addToCart([...cart,product])
         }   
     }
 
@@ -40,7 +39,7 @@ const ProductDetails = ({product}) => {
                     </div>
                     <p>{product.details}</p>
                     <span>In Stock: {product.quantity}</span>
-                    <div className={btn_class} onClick={addToCart}>Add to Cart</div>
+                    <div className={btn_class} onClick={addToCartLocal}>Add to Cart</div>
                </div>
             </div>
             <style jsx>

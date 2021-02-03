@@ -46,8 +46,11 @@ const navbar = {
 } 
 
 const Navbar = () => {
-    const cart = useCart()
-
+    const {cart} = useCart()
+    let itemLength = 0
+    cart.forEach(e=>{
+        itemLength += e.cart_qty
+    })
 
     return (
         <div style={navbar.nav}>
@@ -58,7 +61,7 @@ const Navbar = () => {
                 <Link href="/cart">
                     <div style={{position:'relative'}}>
                         <FontAwesomeIcon style={navbar.links} icon={faShoppingCart} />
-                        { (cart.length>0)? <span style={navbar.counter}>{cart.length}</span>: null}
+                        { (cart.length>0)? <span style={navbar.counter}>{itemLength}</span>: null}
                     </div>
                 </Link>
                 <FontAwesomeIcon style={navbar.links} icon={faBriefcase} />

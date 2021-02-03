@@ -1,14 +1,11 @@
 import {createContext,useState,useContext} from 'react'
 
 const CartContext = createContext()
-const AddToCartContext = createContext()
 
 export function useCart() {
     return useContext(CartContext)
 }
-export function useAddToCart() {
-    return useContext(AddToCartContext)
-}
+
 
 
 
@@ -27,10 +24,8 @@ export default function CartProvider({children}) {
     }
 
     return (
-      <CartContext.Provider value={cart}>
-          <AddToCartContext.Provider value={addToCart}>
+      <CartContext.Provider value={{cart,addToCart,updateCartQty}}>
             {children}
-          </AddToCartContext.Provider>
       </CartContext.Provider>
     )
   }

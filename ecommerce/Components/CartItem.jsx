@@ -3,8 +3,8 @@ import { faChevronCircleDown} from '@fortawesome/free-solid-svg-icons'
 import { faChevronCircleUp } from '@fortawesome/free-solid-svg-icons'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React,{useReducer} from 'react'
-import {useCart,useAddToCart} from '../Providers/cartProvider'
+import React,{useReducer,useEffect} from 'react'
+import {useCart} from '../Providers/cartProvider'
 
 
 
@@ -21,10 +21,17 @@ function reducer(state, action) {
   }
 
 const CartItem = ({item}) => {
-    const cart = useCart()
-    const addToCart = useAddToCart()
+    const {cart,addToCart,updateCartQty} = useCart()
     const [state, dispatch] = useReducer(reducer,{quantity: item.cart_qty});
     const decrement_class = (state.quantity>1)? 'pointer quantity-div':'pointer quantity-div disabled';
+    
+    useEffect(() => {
+        updateCartQty({
+            id:item.id,
+            qty: state.quantity
+        })
+    }, [state]);
+
     function remove(){
         addToCart(
             cart.filter(product=>{
