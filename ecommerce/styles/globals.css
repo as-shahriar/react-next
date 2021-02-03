@@ -32,6 +32,11 @@ a {
   user-select: none;
 }
 
+.button.disabled {
+  cursor: auto;
+  background-color: #666363;
+}
+
 @media (max-width: 850px) {
   .container {
     margin: 0.2rem 0.2rem;

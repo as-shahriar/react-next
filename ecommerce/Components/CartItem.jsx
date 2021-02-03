@@ -4,6 +4,8 @@ import { faChevronCircleUp } from '@fortawesome/free-solid-svg-icons'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React,{useReducer} from 'react'
+import {useCart,useAddToCart} from '../Providers/cartProvider'
+
 
 
 function reducer(state, action) {
@@ -18,14 +20,23 @@ function reducer(state, action) {
     }
   }
 
-const CartItem = () => {
-    const [state, dispatch] = useReducer(reducer,{quantity: 1});
+const CartItem = ({item}) => {
+    const cart = useCart()
+    const addToCart = useAddToCart()
+    const [state, dispatch] = useReducer(reducer,{quantity: item.cart_qty});
     const decrement_class = (state.quantity>1)? 'pointer quantity-div':'pointer quantity-div disabled';
+    function remove(){
+        addToCart(
+            cart.filter(product=>{
+                return product.id!=item.id
+            })
+        )
+    }
     return (
         <>
         <div className="box">
-            <img className='image'  src="https://m.media-amazon.com/images/I/81hggFz2DvL._AC_UL480_QL65_.jpg" alt="product image"/>
-            <span>T-Shirt</span>
+            <img className='image'  src={item.image} alt="product image"/>
+            <span>{item.name} </span>
                 <div>
                     <div className="pointer quantity-div"  onClick={() => dispatch({type: 'increment'})}>
                         <FontAwesomeIcon icon={faChevronCircleUp} />
@@ -37,10 +48,10 @@ const CartItem = () => {
                 </div>
                 <div>
                     <FontAwesomeIcon icon={faDollarSign} />
-                    <span className='price'>450</span>
+                    <span className='price'>{item.price} </span>
                 </div>
 
-                <div className="pointer">
+                <div className="pointer" onClick={remove}>
                     <FontAwesomeIcon icon={faTrash} />
                 </div>
 
@@ -65,6 +76,7 @@ const CartItem = () => {
 
                     .quantity-div{
                         text-align: center;
+                        user-select: none;
                     }
                     
                     .price{

@@ -1,17 +1,17 @@
-
 import CartItem from './CartItem'
+import {useCart} from '../Providers/cartProvider'
 
 
-let ar = [0,1,2,3,4,5]
 const Cart = () => {
+    const cart = useCart()
     return (
         <>
             <h2>Shopping Cart</h2>
             <hr/>
 
             {
-                ar.map((item)=>{
-                    return <CartItem key={item}/>
+                cart.map((item)=>{
+                    return <CartItem key={item.id} item={item}/>
                 })
             }
 

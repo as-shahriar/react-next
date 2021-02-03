@@ -2,6 +2,7 @@ import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import { faBriefcase } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
+import {useCart} from '../Providers/cartProvider'
 
 const navbar = {
     nav:{
@@ -45,6 +46,9 @@ const navbar = {
 } 
 
 const Navbar = () => {
+    const cart = useCart()
+
+
     return (
         <div style={navbar.nav}>
             <Link href="/">
@@ -54,7 +58,7 @@ const Navbar = () => {
                 <Link href="/cart">
                     <div style={{position:'relative'}}>
                         <FontAwesomeIcon style={navbar.links} icon={faShoppingCart} />
-                        <span style={navbar.counter}>4</span>
+                        { (cart.length>0)? <span style={navbar.counter}>{cart.length}</span>: null}
                     </div>
                 </Link>
                 <FontAwesomeIcon style={navbar.links} icon={faBriefcase} />
