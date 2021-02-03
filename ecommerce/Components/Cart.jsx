@@ -1,6 +1,6 @@
 import CartItem from './CartItem'
 import {useCart} from '../Providers/cartProvider'
-
+import Link from 'next/link'
 
 const Cart = () => {
     const {cart} = useCart()
@@ -25,7 +25,7 @@ const Cart = () => {
                 (cart.length)? 
                 <div className="right">
                     <span><strong>Total:</strong> {total.toFixed(2)} </span>
-                    <div className="button">Check Out</div>
+                    <Link href='/checkout'><div className="button">Check Out</div></Link>
                 </div> : <p align="center">Your Cart is Empty</p> 
             }
             
