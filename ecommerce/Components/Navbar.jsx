@@ -64,8 +64,12 @@ const Navbar = () => {
                         { (cart.length>0)? <span style={navbar.counter}>{itemLength}</span>: null}
                     </div>
                 </Link>
-                <FontAwesomeIcon style={navbar.links} icon={faBriefcase} />
-
+                
+                <Link href="/orders">
+                    <div>
+                        <FontAwesomeIcon style={navbar.links} icon={faBriefcase} />
+                    </div>
+                </Link>
             </div>
         </div>
     );

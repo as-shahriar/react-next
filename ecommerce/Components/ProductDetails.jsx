@@ -1,6 +1,7 @@
 import { faDollarSign } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {useCart} from '../Providers/cartProvider'
+import {useEffect,useState} from 'react'
 
 const style = {
     container:{
@@ -11,21 +12,30 @@ const style = {
 
 const ProductDetails = ({product}) => {
     const {cart,addToCart} = useCart()
+    const [productQty,setProductQty] = useState(null)
+
     let len = cart.filter(item=>{
         return item.id === product.id
     }).length
+
+    useEffect(() => {
+        fetch(`http://localhost:3000/api/products/?id=${product.id}`).then(res=>res.json()).then(data=>{
+            setProductQty(data.quantity)
+        })
+    }, []);
+
 
     function addToCartLocal (){
         let len = cart.filter(item=>{
             return item.id === product.id
         }).length
-        if(!len){
+        if(!len && productQty!=null && productQty!=0){
             product.cart_qty = 1
             addToCart([...cart,product])
         }   
     }
 
-    const btn_class = (!len)? 'button' : 'button disabled'
+    const btn_class = (!len && productQty!=0)? 'button' : 'button disabled'
 
     return (
         <div style={style.container}>
@@ -38,7 +48,7 @@ const ProductDetails = ({product}) => {
                         <span className='price'>{product.price}</span>
                     </div>
                     <p>{product.details}</p>
-                    <span>In Stock: {product.quantity}</span>
+                    <span>In Stock: {(productQty==null)?'Loading...':productQty}</span>
                     <div className={btn_class} onClick={addToCartLocal}>Add to Cart</div>
                </div>
             </div>

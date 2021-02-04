@@ -1,14 +1,20 @@
 import {useCart} from '../Providers/cartProvider'
 import {useState,useEffect} from 'react'
+import { useRouter } from 'next/router'
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Link from 'next/link'
+
 
 const Checkout = () => {
-    const {cart} = useCart()
+    const {cart,addToCart} = useCart()
     const [form,setForm] = useState({
         name:null,
         mobile:null,
         address:null
     })
-
+    const router = useRouter()
+    const [is_completed,setCompleted] = useState(false)
     let total = 0
     cart.forEach(e=>{
         total += e.price*e.cart_qty
@@ -56,10 +62,41 @@ const Checkout = () => {
                  user: form,
                  orders: cart
             })
-        });
+        }).then(res=>{
+            if(res.status==201){
+                setCompleted(true)
+                addToCart([])
+            }else{
+                alert("Network Error!")
+            }
+        }).catch(err=>{
+            alert(err)
+        })
+
+        fetch('http://localhost:3000/api/products',{
+            method: 'POST',
+            body: JSON.stringify(cart)
+        }).then(res=>{
+            if(res.status==201){
+                setCompleted(true)
+                addToCart([])
+            }else{
+                alert("Network Error!")
+            }
+        }).catch(err=>{
+            alert(err)
+        })
     }
+
+    useEffect(() => {
+        if(!cart.length) router.push('/')  
+    }, []);
     
+    useEffect(() => {
+    }, [is_completed]);
+
     return (
+        (!is_completed)?
         <>
             <h2>Check-Out</h2>
             <hr/>
@@ -102,6 +139,17 @@ const Checkout = () => {
                     `
                 }
             </style>
+        </>:
+        <>
+        <div style={{fontSize:'1.5rem', display:'flex', alignItems: 'center',justifyContent:'center',color:'green'}}>
+                <h3 style={{marginRight:'1rem'}}>Order Completed</h3>
+                <FontAwesomeIcon  icon={faCheck}  />
+        </div>
+        <div style={{display:'flex',justifyContent:'center'}}>
+            <Link href="/orders">
+                <div  className="button">See All Orders</div>
+            </Link>
+        </div>
         </>
     );
 };
