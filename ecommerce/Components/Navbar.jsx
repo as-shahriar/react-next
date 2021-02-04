@@ -59,14 +59,14 @@ const Navbar = () => {
             </Link>
             <div style={{display:'flex'}}>
                 <Link href="/cart">
-                    <div style={{position:'relative'}}>
+                    <div style={{position:'relative'}} title="Cart">
                         <FontAwesomeIcon style={navbar.links} icon={faShoppingCart} />
                         { (cart.length>0)? <span style={navbar.counter}>{itemLength}</span>: null}
                     </div>
                 </Link>
                 
                 <Link href="/orders">
-                    <div>
+                    <div title="My Orders">
                         <FontAwesomeIcon style={navbar.links} icon={faBriefcase} />
                     </div>
                 </Link>

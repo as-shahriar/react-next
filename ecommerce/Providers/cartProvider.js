@@ -10,21 +10,26 @@ export function useCart() {
 
 
 export default function CartProvider({children}) {
-    const [cart, setCart] = useState([])
+
 
     useEffect(() => {
-        // console.log(JSON.parse(localStorage.getItem("cart")));
-        
-    }, [cart]);
+        const localCart = JSON.parse(localStorage.getItem("cart"));
+        setCart(localCart)
+    }, []);
+
+
+    const [cart, setCart] = useState([])
+
     function addToCart(products){
-        setCart(products)
         localStorage.setItem("cart",JSON.stringify(products))
+        setCart(products)
     }
     function updateCartQty({id,qty}){
         let products = cart.map(product=>{
             if(product.id==id) product.cart_qty = qty
             return product
         })
+        localStorage.setItem("cart",JSON.stringify(products))
         setCart(products)
     }
 

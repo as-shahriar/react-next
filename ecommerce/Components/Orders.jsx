@@ -18,8 +18,11 @@ const Orders = () => {
             {
                 orders.map(order=>{
                     return <Order key={order.orderID} item={order}/>
-
                 })
+            }
+
+            {
+                 (!orders.length)? <h3 align="center">No order history available</h3>:null
             }
         </>
     );
