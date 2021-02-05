@@ -1,5 +1,3 @@
-import { faDollarSign } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 
 
@@ -18,7 +16,9 @@ const product = {
         padding: '1rem'
     },
     details:{
-        padding: ' .6rem .7rem'
+        padding: ' .6rem .7rem',
+        display:'flex',
+        flexDirection:'column'
     },
     price:{
         marginLeft: '3px'
@@ -32,10 +32,7 @@ const Product = ({item}) => {
                 <img style={product.image} src={item.image} alt="product image"/>
                 <div style={product.details}>
                     <span>{item.name}</span>
-                    <div>
-                        <FontAwesomeIcon icon={faDollarSign} />
-                        <span style={product.price}>{item.price}</span>
-                    </div>
+                    <span style={product.price}><strong>$</strong> {item.price}</span>
                 </div>
             </div>
         </Link>

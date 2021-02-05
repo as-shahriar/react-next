@@ -11,10 +11,11 @@ import {useCart} from '../Providers/cartProvider'
 function reducer(state, action) {
     switch (action.type) {
       case 'increment':
-        return {quantity: state.quantity + 1};
+        if(state.quantity>=state.limit) return {quantity: state.quantity,limit:state.limit}
+        return {quantity: state.quantity + 1,limit:state.limit}
       case 'decrement':
-        if(state.quantity <= 1) return {quantity: state.quantity};
-        return {quantity: state.quantity - 1};
+        if(state.quantity <= 1 ) return {quantity: state.quantity,limit:state.limit}
+        return {quantity: state.quantity - 1,limit:state.limit}
       default:
         throw new Error();
     }
@@ -22,8 +23,15 @@ function reducer(state, action) {
 
 const CartItem = ({item}) => {
     const {cart,addToCart,updateCartQty} = useCart()
-    const [state, dispatch] = useReducer(reducer,{quantity: item.cart_qty});
+
+    item.quantity = cart.filter(e=>{
+        return item.id==e.id
+    })[0].quantity
+
+    const [state, dispatch] = useReducer(reducer,{quantity: item.cart_qty,limit:item.quantity});
+    const increment_class = (state.quantity<item.quantity)? 'pointer quantity-div':'pointer quantity-div disabled';
     const decrement_class = (state.quantity>1)? 'pointer quantity-div':'pointer quantity-div disabled';
+
     
     useEffect(() => {
         updateCartQty({
@@ -45,7 +53,7 @@ const CartItem = ({item}) => {
             <img className='image'  src={item.image} alt="product image"/>
             <span>{item.name} </span>
                 <div>
-                    <div className="pointer quantity-div"  onClick={() => dispatch({type: 'increment'})}>
+                    <div className={increment_class}  onClick={() => dispatch({type: 'increment'})}>
                         <FontAwesomeIcon icon={faChevronCircleUp} />
                     </div>
                         <div className="quantity-div">{state.quantity}</div>

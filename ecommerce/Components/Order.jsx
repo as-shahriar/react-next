@@ -1,5 +1,3 @@
-import { faDollarSign } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from "next/link"
 const Order = ({item}) => {
     return (
@@ -10,13 +8,8 @@ const Order = ({item}) => {
                     <span>ID#{item.orderID}</span>
                     <span>{item.date}</span>
                     <span>Qty: {item.totalQty}</span>
-                    <div>
-                        <FontAwesomeIcon icon={faDollarSign} />
-                        <span className='price'>{item.totalPrice} </span>
-                    </div>
-
-                        
-
+                    <span className='price'><strong>$</strong> {item.totalPrice} </span>
+          
                     <style jsx>
                         {
                             `

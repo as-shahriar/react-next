@@ -1,6 +1,3 @@
-import { faDollarSign } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
 const OrderdItem = ({item}) => {
     return (
         <>
@@ -11,8 +8,7 @@ const OrderdItem = ({item}) => {
             <span>{item.name} </span>
             <span>Quantity: {item.cart_qty}</span>
             <div>
-                <FontAwesomeIcon icon={faDollarSign} />
-                <span className='price'>{item.price*item.cart_qty} </span>
+                <span className='price'><strong>$</strong> {item.price*item.cart_qty} </span>
             </div>
 
                 

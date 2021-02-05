@@ -1,5 +1,3 @@
-import { faDollarSign } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {useCart} from '../Providers/cartProvider'
 import {useEffect,useState} from 'react'
 
@@ -30,6 +28,7 @@ const ProductDetails = ({product}) => {
             return item.id === product.id
         }).length
         if(!len && productQty!=null && productQty!=0){
+            product.quantity = productQty
             product.cart_qty = 1
             addToCart([...cart,product])
         }   
@@ -43,10 +42,7 @@ const ProductDetails = ({product}) => {
                 <img className='image'  src={product.image} alt="product image"/>
                 <div>
                     <h2>{product.name}</h2>
-                    <div>
-                        <FontAwesomeIcon icon={faDollarSign} />
-                        <span className='price'>{product.price}</span>
-                    </div>
+                    <span className='price'><strong>$</strong> {product.price}</span>
                     <p>{product.details}</p>
                     <span>In Stock: {(productQty==null)?'Loading...':productQty}</span>
                     <div className={btn_class} onClick={addToCartLocal}>Add to Cart</div>
