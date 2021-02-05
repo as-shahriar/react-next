@@ -14,7 +14,7 @@ export default function CartProvider({children}) {
 
     useEffect(() => {
         const localCart = JSON.parse(localStorage.getItem("cart"));
-        setCart(localCart)
+        if(localCart)   setCart(localCart)
     }, []);
 
 

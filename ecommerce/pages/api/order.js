@@ -2,23 +2,22 @@ var fs = require('fs');
 
 export default (req, res) => {
     if (req.method === 'POST') {
-        fs.readFile("Data/orders.json",'utf8',(err,data)=>{
-            let savedData = JSON.parse(data)
-            let newData = JSON.parse(req.body)
-            newData.orderID = savedData.length+1
-            let date = new Date()
-            newData.date = `${date.getDate()}-${date.getMonth()+1}-${date.getFullYear()}`
-            let totalPrice = 0
-            let totalQty = 0
-            newData.orders.forEach(e=>{
-                totalPrice += e.price*e.cart_qty
-                totalQty += e.cart_qty
-            })
-            newData.totalPrice = totalPrice
-            newData.totalQty = totalQty
-            fs.writeFile("Data/orders.json",JSON.stringify([...savedData,newData]),(err)=>console.log(err))
+        let data = fs.readFileSync("Data/orders.json",'utf8')
+        let savedData = JSON.parse(data)
+        let newData = JSON.parse(req.body)
+        newData.orderID = savedData.length+1
+        let date = new Date()
+        newData.date = `${date.getDate()}-${date.getMonth()+1}-${date.getFullYear()}`
+        let totalPrice = 0
+        let totalQty = 0
+        newData.orders.forEach(e=>{
+            totalPrice += e.price*e.cart_qty
+            totalQty += e.cart_qty
         })
-        res.status(201).json({})
+        newData.totalPrice = totalPrice
+        newData.totalQty = totalQty
+        fs.writeFile("Data/orders.json",JSON.stringify([...savedData,newData]),(err)=>{if(err)console.log(err)})
+        res.status(201).json({id:newData.orderID})
     }
     else{
         let data = fs.readFileSync("Data/orders.json",'utf8')

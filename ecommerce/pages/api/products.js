@@ -14,7 +14,6 @@ export default (req, res) => {
               else return product
           }
       })
-      // console.log(products);
       fs.writeFile("Data/products.json",JSON.stringify(products),(err)=>{if(err)console.log(err)})
     })
     res.status(201).json({})

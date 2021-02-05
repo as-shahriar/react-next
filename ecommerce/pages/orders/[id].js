@@ -1,6 +1,5 @@
 import OrderedProducts from '../../Components/OrderdProducts'
 const OrderDetails = ({orderDetails}) => {
-    console.log(orderDetails);
     return   <OrderedProducts orderDetails={orderDetails}/>
     
 }

@@ -56,30 +56,31 @@ const Checkout = () => {
             alert("Address is required")
             return;
         }
-        fetch('http://localhost:3000/api/order',{
-            method: 'POST',
-            body: JSON.stringify({
-                 user: form,
-                 orders: cart
-            })
-        }).then(res=>{
-            if(res.status==201){
-                setCompleted(true)
-                addToCart([])
-            }else{
-                alert("Network Error!")
-            }
-        }).catch(err=>{
-            alert(err)
-        })
+
 
         fetch('http://localhost:3000/api/products',{
             method: 'POST',
             body: JSON.stringify(cart)
         }).then(res=>{
             if(res.status==201){
-                setCompleted(true)
-                addToCart([])
+                fetch('http://localhost:3000/api/order',{
+                    method: 'POST',
+                    body: JSON.stringify({
+                         user: form,
+                         orders: cart
+                    })
+                }).then(res=>{
+                    if(res.status==201){
+                        setCompleted(true)
+                        addToCart([])
+                        res.json().then(data=>router.push(`/orders/${data.id}`))
+                        
+                    }else{
+                        alert("Network Error!")
+                    }
+                }).catch(err=>{
+                    alert(err)
+                })
             }else{
                 alert("Network Error!")
             }
@@ -88,15 +89,12 @@ const Checkout = () => {
         })
     }
 
-    useEffect(() => {
-        if(!cart.length) router.push('/')  
-    }, []);
-    
+   
     useEffect(() => {
     }, [is_completed]);
 
     return (
-        (!is_completed)?
+        (!cart.length && !is_completed)? <h3 align="center">Your Cart is Empty</h3>:
         <>
             <h2>Check-Out</h2>
             <hr/>
@@ -139,17 +137,6 @@ const Checkout = () => {
                     `
                 }
             </style>
-        </>:
-        <>
-        <div style={{fontSize:'1.5rem', display:'flex', alignItems: 'center',justifyContent:'center',color:'green'}}>
-                <h3 style={{marginRight:'1rem'}}>Order Completed</h3>
-                <FontAwesomeIcon  icon={faCheck}  />
-        </div>
-        <div style={{display:'flex',justifyContent:'center'}}>
-            <Link href="/orders">
-                <div  className="button">See All Orders</div>
-            </Link>
-        </div>
         </>
     );
 };
