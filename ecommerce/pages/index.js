@@ -16,21 +16,15 @@ const style={
 
 export default function Home({products}) {
   return (
-    <>
       <div style={style.container}>
-
-      <div style={style.flex}>
-      {
-          products.map((item)=>{
-            return <Product key={item.id} item={item} />
-          })
-      }
+        <div style={style.flex}>
+          {
+              products.map((item)=>{
+                return <Product key={item.id} item={item} />
+              })
+          }
+        </div>
       </div>
-      
-      </div>
-
-
-    </>
   )
 }
 

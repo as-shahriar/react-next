@@ -1,7 +1,6 @@
 import Order from './Order'
 import {useEffect,useState} from 'react'
 
-
 const Orders = () => {
     const [orders,setOrders] = useState([])
     const [isLoaded,setLoaded] = useState(false)
@@ -15,18 +14,18 @@ const Orders = () => {
             alert("Network Error!")
         })
     }, []);
+
     return (
         <>
            <h2>My Orders</h2>
             <hr/>
             {
                 (!isLoaded)? <h3 align="center">Loanding...</h3> : null
-            
             }
+
             {
                 orders.map(order=>{
-                    return     <Order key={order.orderID} item={order}/>
-                        
+                    return  <Order key={order.orderID} item={order}/>
                 })
             }
 

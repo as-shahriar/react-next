@@ -22,7 +22,6 @@ const ProductDetails = ({product}) => {
         })
     }, []);
 
-
     function addToCartLocal (){
         let len = cart.filter(item=>{
             return item.id === product.id
@@ -80,8 +79,6 @@ const ProductDetails = ({product}) => {
             }
         </style>
         </div>
-
-        
     );
 };
 

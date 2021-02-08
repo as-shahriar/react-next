@@ -13,14 +13,11 @@ const Cart = () => {
         <>
             <h2>Shopping Cart</h2>
             <hr/>
-        
-
             {
                 cart.map((item)=>{
                     return <CartItem key={item.id} item={item}/>
                 })
             }
-
 
             {
                 (cart.length)? 
@@ -30,8 +27,6 @@ const Cart = () => {
                 </div> : <h3 align="center">Your Cart is Empty</h3> 
             }
             
-
-
             <style jsx>
                 {
                     `
@@ -43,10 +38,8 @@ const Cart = () => {
                     `
                 }
             </style>
-        
         </>
     );
 };
-
 
 export default Cart;

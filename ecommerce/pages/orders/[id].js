@@ -1,7 +1,7 @@
 import OrderedProducts from '../../Components/OrderdProducts'
+
 const OrderDetails = ({orderDetails}) => {
     return   <OrderedProducts orderDetails={orderDetails}/>
-    
 }
 
 export default OrderDetails;
@@ -16,5 +16,4 @@ export async function getServerSideProps({params}){
                 orderDetails
             }
         }
-    
 }

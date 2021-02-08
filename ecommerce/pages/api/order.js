@@ -29,6 +29,5 @@ export default (req, res) => {
             else res.status(404).json({err:'No ID Found'})
         }
         else  res.status(200).json(JSON.parse(data))
-
     }
 }

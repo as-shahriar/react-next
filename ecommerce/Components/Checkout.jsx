@@ -1,9 +1,6 @@
 import {useCart} from '../Providers/cartProvider'
 import {useState,useEffect} from 'react'
 import { useRouter } from 'next/router'
-import { faCheck } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Link from 'next/link'
 
 
 const Checkout = () => {
@@ -57,7 +54,6 @@ const Checkout = () => {
             return;
         }
 
-
         fetch('http://localhost:3000/api/products',{
             method: 'POST',
             body: JSON.stringify(cart)
@@ -88,7 +84,6 @@ const Checkout = () => {
             alert(err)
         })
     }
-
    
     useEffect(() => {
     }, [is_completed]);
@@ -107,8 +102,6 @@ const Checkout = () => {
                 <div className="button" onClick={onSubmit}>Confirm Order</div>
             </div>
 
-            
-
             <style jsx>
                 {
                     `
@@ -117,7 +110,6 @@ const Checkout = () => {
                             flex-direction: column;
                             align-items: center;
                         }  
-                        
                         input[type="text"]{
                             width: 300px;
                             height: 30px;
@@ -140,6 +132,5 @@ const Checkout = () => {
         </>
     );
 };
-
 
 export default Checkout;
