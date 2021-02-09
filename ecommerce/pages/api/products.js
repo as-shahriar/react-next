@@ -10,7 +10,7 @@ export default (req, res) => {
         for(let i=0;i<newData.length;i++){
             if(newData[i].id===products[j].id){
               if(products[j].quantity<newData[i].cart_qty){   //If stock in empty return 400
-                res.status(400)
+                res.status(400).json({id:newData[i].id})
                 res.end()
                 return
               }

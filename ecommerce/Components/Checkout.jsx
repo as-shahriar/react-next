@@ -79,6 +79,10 @@ const Checkout = () => {
                 })
             }
             else if(res.status == 400){
+                res.json().then(data=>{
+                    let updatedCart = cart.filter(item=> item.id!=data.id)
+                    addToCart(updatedCart);
+                })
                 alert("Some product is out of stock. Kindly check product availability and try again.")
             }
             else{
