@@ -1,5 +1,4 @@
-import Cart from '../../Components/cart'
-
+import Cart from '../../Components/Cart'
 const index = () => {
     return <Cart/>
 };
