@@ -77,7 +77,11 @@ const Checkout = () => {
                 }).catch(err=>{
                     alert(err)
                 })
-            }else{
+            }
+            else if(res.status == 400){
+                alert("Some product is out of stock. Kindly check product availability and try again.")
+            }
+            else{
                 alert("Network Error!")
             }
         }).catch(err=>{

@@ -4,18 +4,23 @@ export default (req, res) => {
 
   if (req.method === 'POST') {
     let newData = JSON.parse(req.body)
-    fs.readFile("Data/products.json",'utf8',(err,data)=>{
-      let products = JSON.parse(data).map(product=>{
-          for(let i=0;i<newData.length;i++){
-              if(newData[i].id===product.id){
-                product.quantity -= newData[i].cart_qty
-                return product
-              } 
-              else return product
-          }
-      })
-      fs.writeFile("Data/products.json",JSON.stringify(products),(err)=>{if(err)console.log(err)})
-    })
+    let data = fs.readFileSync("Data/products.json",'utf8')
+    let products = JSON.parse(data)
+    for(let j=0;j<products.length;j++){
+        for(let i=0;i<newData.length;i++){
+            if(newData[i].id===products[j].id){
+              if(products[j].quantity<newData[i].cart_qty){   //If stock in empty return 400
+                res.status(400)
+                res.end()
+                return
+              }
+              products[j].quantity -= newData[i].cart_qty
+              break
+            } 
+        }
+    }
+    fs.writeFile("Data/products.json",JSON.stringify(products),(err)=>{if(err)console.log(err)})
+
     res.status(201).json({})
   }
 
